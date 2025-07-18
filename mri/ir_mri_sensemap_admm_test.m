@@ -135,8 +135,10 @@ if ~isvar('schof'), printm('Cholesky estimate with full support')
 end
 
 if 1
-	im(9, abs(schof) .* maskS, slim, '$\hat{s}$ cholesky full'), cbar
-	im(10, abs(schof - smap) .* maskS, '|err| cholesky full'), cbar
+	elim = [0, 0.05]; % error limits
+	im(9, abs(schof), slim, '$\hat{s}$ cholesky full'), cbar
+	im(10, abs(schof - smap) .* maskS, elim, '|err| cholesky full'), cbar
+	colormap(gca, parula)
 	xlabelf('RMSE %.4f', srms(schof))
 drawnow
 end
@@ -157,7 +159,8 @@ end
 
 if 1
 	im(11, abs(schos), slim, '$\hat{s}$ cholesky mask'), cbar
-	im(12, abs(schos - smap) .* maskS, '|err| cholesky mask'), cbar
+	im(12, abs(schos - smap) .* maskS, elim, '|err| cholesky mask'), cbar
+	colormap(gca, parula)
 	xlabelf('RMSE %.4f', srms(schos))
 drawnow
 end
@@ -186,15 +189,18 @@ end
 
 if 1
 	im(7, abs(sinit(:,:,end)) .* maskS, slim, '$\hat{s}$ init'), cbar
-	im(8, abs(sinit(:,:,end) - smap) .* maskS, '|err| init'), cbar
+	im(8, abs(sinit(:,:,end) - smap) .* maskS, elim, '|err| init'), cbar
+	colormap(gca, parula)
 	xlabelf('RMSE %.4f', srms(sinit(:,:,end)))
 
-	im(13, abs(sadmf(:,:,end)) .* maskS, slim, '$\hat{s}$ admm full'), cbar
-	im(14, abs(sadmf(:,:,end) - smap) .* maskS, '|err| admm full'), cbar
+	im(13, abs(sadmf(:,:,end)), slim, '$\hat{s}$ admm full'), cbar
+	im(14, abs(sadmf(:,:,end) - smap) .* maskS, elim, '|err| admm full'), cbar
+	colormap(gca, parula)
 	xlabelf('RMSE %.4f', srms(sadmf(:,:,end)))
 
 	im(15, abs(sadms(:,:,end)) .* maskS, slim, '$\hat{s}$ admm mask'), cbar
-	im(16, abs(sadms(:,:,end) - smap) .* maskS, '|err| admm mask'), cbar
+	im(16, abs(sadms(:,:,end) - smap) .* maskS, elim, '|err| admm mask'), cbar
+	colormap(gca, parula)
 	xlabelf('RMSE %.4f', srms(sadms(:,:,end)))
 end
 
