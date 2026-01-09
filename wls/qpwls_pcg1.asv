@@ -176,10 +176,7 @@ for iter = 1:arg.niter
   
     fprintf('Loss = %e; x L2-Norm=%e\n',info(iter,1),info(iter,2));
     if arg.chat
-        x_show = reshape(x,A.idim);
-        im(abs(x_show));%caxis([0,0.01])
-        pause(0.1)
-    end
+    im(reshape(x,A.idim))
 
 	% check norm(xnew-xold) / norm(xnew) vs threshold
 	if arg.stop_diff_tol && ...

@@ -147,7 +147,7 @@ for iter = 1:arg.niter
 	if any(arg.isave == iter)
 		xs(:, arg.isave == iter) = x;
 	end
-    info(iter,:) = arg.userfun(x, arg.userarg{:});
+    info(1+iter,:) = arg.userfun(x, arg.userarg{:});
     
     if arg.verbose
         fprintf('Loss = %e; x Penalty = %e\n',info(iter,1),info(iter,2));
