@@ -150,7 +150,13 @@ for iter = 1:arg.niter
     info(iter,:) = arg.userfun(x, arg.userarg{:});
     
     if arg.verbose
-        fprintf('Loss = %e; x Penalty = %e\n',info(iter,1),info(iter,2));
+        if size(info,2) == 1
+            fprintf('Loss = %e\n',info(iter,1));
+        elseif size(info,2) == 2
+            fprintf('Loss = %e; x Penalty = %e\n',info(iter,1),info(iter,2));
+        else
+            disp('arg.fun should have 1 to 2 outputs!')
+        end
     end
 	% check norm(xnew-xold) / norm(xnew) vs threshold
 	if arg.stop_threshold && ...
