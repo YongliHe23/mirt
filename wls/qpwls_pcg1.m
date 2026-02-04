@@ -94,6 +94,7 @@ Cx = C * x;
 if arg.chat
     figure;
 end
+tic
 for iter = 1:arg.niter
 	ticker(mfilename, iter, arg.niter)
 
@@ -171,10 +172,11 @@ for iter = 1:arg.niter
 
 	if any(arg.isave == iter)
 		xs(:, arg.isave == iter) = single(x);
-	end
-	info(iter,:) = arg.userfun(x, arg.userarg{:});
+    end
+    timet = toc;
+	info(iter,:) = [timet arg.userfun(x, arg.userarg{:})];
   
-    fprintf('Loss = %e; x L2-Norm=%e\n',info(iter,1),info(iter,2));
+    fprintf('Loss = %e; x L2-Norm=%e\n',info(iter,2),info(iter,3));
     if arg.chat
         x_show = reshape(x,A.idim);
         im(abs(x_show));%caxis([0,0.01])
